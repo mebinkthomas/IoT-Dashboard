@@ -1,0 +1,25 @@
+<%- include('./partials/header.ejs') %>
+    <div class="wrapper">
+        <%- include('./partials/sideNav.ejs') %>
+        <div class="main">
+            <%- include('./partials/topbar.ejs') %>
+            <section class="mt-1">
+                <div class="add-item container">
+                    <p class="subheading">Add Widgets</p>
+                    <div class="items">
+                        <p class="sub-head"><i class="fas fa-tachometer-alt icons-info"></i>Displays</p>
+                        <div class="displays">
+                            <a href="/dashboard/addWidgets/addForm?type=circle&widget=sensor"><img src="/img/circle.JPG" alt=""></a>
+                            <a href="/dashboard/addWidgets/addForm?type=text&widget=sensor"><img src="/img/text.JPG" alt=""></a>
+                        </div>
+                        <p class="sub-head mt-1"><i class="fas fa-toggle-on icons-info"></i>Switches</p>
+                        <div class="switch-add-list">
+                            <a href="/dashboard/addWidgets/addForm?widget=switch"><img src="/img/toggleSwitch.JPG" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div> 
+
+<%- include('./partials/footer.ejs') %>

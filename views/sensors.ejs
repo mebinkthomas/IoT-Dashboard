@@ -1,0 +1,51 @@
+<%- include('./partials/header.ejs') %>
+    <div class="wrapper">
+        <%- include('./partials/sideNav.ejs') %>
+        <div class="main">
+            <%- include('./partials/topbar.ejs') %>
+            <section class="mt-1">
+                <% if(sensors.length >0){ %>
+                    <div class="sensors container">
+                        <p class="subheading">Sensors you have added</p>
+                        <p class="message-light"><i class="fas fa-info-circle icons-info"></i> Get all sensor data : &nbsp; GET &nbsp; /api/sensors</p> 
+                        <% sensors.forEach(sensor=>{ %> 
+                            <div class="sensor-list">
+                                <div class="sensor-list-info">
+                                    <p>Label: <%= sensor.sensorLabel %></p>
+                                    <p>Name: <%= sensor.sensorName %></p>
+                                    <p>Routes: </p>
+                                    <p>
+                                      GET &nbsp; /api/sensors/<%= sensor.sensorName %> <span class="pl-1">- Get sensor data</span><br>
+                                      PUT &nbsp; /api/sensors/<%= sensor.sensorName %> <span class="pl-1">- Update sensor data</span>
+                                    </p>
+                                </div>
+                                <i class="far fa-trash-alt delete-icon" data-id="<%= sensor.id %> "></i>
+                            </div>
+                        <% }); %> 
+                    </div>
+                <% } else{ %>
+                    <p class="container message mt-2"><i class="fas fa-info-circle icons-info"></i>You have not added any sensors yet</p>
+                <% } %>
+            </section>
+        </div>
+    </div> 
+  
+    <script>
+        const deleteButton = document.querySelectorAll('.delete-icon');
+        deleteButton.forEach(button=>{
+            button.addEventListener('click', async()=>{
+                const id = button.getAttribute('data-id');
+                try {
+                    const res = await fetch(`/api/sensors/${id}`, { method: 'DELETE' });
+                    const data = await res.json();
+                    if(data.msg === 'success'){
+                        window.location.href = '/dashboard/sensors';
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            });
+            
+        });
+    </script>
+<%- include('./partials/footer.ejs') %>

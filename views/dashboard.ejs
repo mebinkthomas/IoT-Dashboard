@@ -1,0 +1,110 @@
+<%- include('./partials/header.ejs') %>
+<div class="wrapper">
+    <%- include('./partials/sideNav.ejs') %>
+    <div class="main">
+        <%- include('./partials/topbar.ejs') %>
+        <section>
+            <% if(sensors.length >0 || relays.length >0){ %> 
+                <div class="cards container">
+                    <% if(sensors.length >0 ){ %>
+                        <% sensors.forEach(sensor=>{ %>
+                            <% if(sensor.sensorStyle === 'text'){ %>
+                                <div class="box">
+                                    <div class="data">
+                                        <h2 class="data-text"><span class="sensor-value-text">0</span>  <span><%= sensor.symbol %> </span></h2>
+                                        <h2 class="sensor-name" data-sensorName="<%= sensor.sensorName %> "><%= sensor.sensorLabel %> </h2>
+                                    </div>
+                                </div>
+                            <% } else { %>
+                                <div class="box">
+                                    <div class="progress">
+                                        <svg>
+                                            <circle cx="70" cy="70" r="70"></circle>
+                                            <circle cx="70" cy="70" r="70"></circle>
+                                        </svg>
+                                        <div class="number"><h2>0</h2></div>
+                                    </div>
+                                    <h2 class="text sensor-circle-name" data-sensor-circle-display="<%= sensor.sensorName %> "><%= sensor.sensorLabel %> </h2>
+                                </div>
+                            <% } %>   
+                        <% }) %>
+                    <% } %>
+                    <% if(relays.length >0){ %> 
+                        <% relays.forEach((relayArray) => { %>
+                            <div class="box box-4">
+                                <% relayArray.forEach((relay) => { %>
+                                    <div class="toggle-switch">
+                                        <div class="relay">
+                                            <label><%= relay.relayLabel %> : <input type="checkbox" name="<%= relay.relayName %> " class="checkbox-toggle" <%= relay.relayStatus === '1'? 'checked' : '' %>  ></label>
+                                        </div>
+                                    </div>
+                                <% }); %> 
+                            </div>
+                        <% }); %>
+                    <% } %>         
+                </div>
+            <% } else{ %>
+                <p class="container message mt-2"><i class="fas fa-info-circle icons-info"></i>You have not added any widgets yet. Click the add button to add widgets</p>
+            <% } %>  
+        </section>
+    </div>
+</div> 
+
+    <script>
+        const sensorTextName = document.querySelectorAll('.sensor-name');
+        const svgCircleName = document.querySelectorAll('.sensor-circle-name');
+        setInterval(() => {
+        //text display
+        sensorTextName.forEach(async name=>{
+            let value = name.previousElementSibling.firstChild;
+            const finalName = name.getAttribute('data-sensorName').trim();
+            try {
+                const res = await fetch(`/api/sensors/${finalName}`);
+                const data = await res.json();
+                value.textContent = data.sensorValue;
+            } catch (err) {
+                console.log(err);
+            }
+        });
+        //svg circle output
+        svgCircleName.forEach(async circleName=>{
+            const circleValue = circleName.previousElementSibling.lastElementChild.firstElementChild;
+            const secondCircle = circleName.previousElementSibling.firstElementChild.lastElementChild;
+            const finalName = circleName.getAttribute('data-sensor-circle-display').trim();
+            try {
+                const res = await fetch(`/api/sensors/${finalName}`);
+                const data = await res.json();
+                circleValue.textContent = data.sensorValue + ''+ data.symbol;
+                secondCircle.style.strokeDashoffset = (440 - (440 * data.sensorValue)/100);
+            } catch (err) {
+                console.log(err);
+            }
+        });
+        }, 5000);
+        const checkbox = document.querySelectorAll('.checkbox-toggle');
+        checkbox.forEach(check=>{
+            check.addEventListener('change', (e)=>{
+                if(e.target.checked === true){
+                    toggleSwitch(e.target.name, '1');
+                }else if(e.target.checked === false){
+                    toggleSwitch(e.target.name, '0');
+                }
+            });
+        });
+
+        const toggleSwitch = async(relayName, relayStatus)=>{
+            try {
+                const res = await fetch(`/api/relays/${relayName}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({relayStatus}),
+                    headers: { 'Content-Type':'application/json' }
+                });
+                const data = await res.json();
+                
+            } catch (err) {
+                console.log(err);
+            }            
+        }
+        
+    </script>
+<%- include('./partials/footer.ejs') %>

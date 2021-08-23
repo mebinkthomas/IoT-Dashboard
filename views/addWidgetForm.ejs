@@ -1,0 +1,90 @@
+<%- include('./partials/header.ejs') %>
+    <div class="wrapper">
+        <%- include('./partials/sideNav.ejs') %>
+        <div class="main">
+            <%- include('./partials/topbar.ejs') %>
+            <section class="mt-1">
+                <div class="add-item container">
+                    <p class="add-heading text-center"><i class="fas fa-plus icons-primary"></i>Add <span class="add-widget-heading"></span></p>
+                    <form class="add-widget-item">
+                        <div class="error"></div>
+                        <label for="widgetLabel">Label</label>
+                        <input type="text" name="widgetLabel" required>
+                        <label for="name">Name</label>
+                        <input type="text" name="name" required>
+                        <label for="name" id="label">Unit</label>
+                        <input type="text" name="unit" required>
+                        <button class="btn btn-primary" >Add</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div> 
+    <script>
+        const span = document.querySelector('.add-widget-heading');
+        const urlParams = new URLSearchParams(window.location.search);
+        const params = Object.fromEntries(urlParams.entries());
+        span.textContent = params.widget;
+        span.style.textTransform = 'capitalize';
+        const form = document.querySelector('form');
+        const error = document.querySelector('.error');
+        const label = document.getElementById('label');
+        const unitInput = form.unit;
+        if(params.widget === 'switch'){
+            label.style.display = 'none';
+            unitInput.style.display = 'none';
+            unitInput.disabled = 'true';
+        }
+        form.addEventListener('submit', async(e)=>{
+            e.preventDefault();
+            error.textContent = '';
+            const widgetName = form.name.value;
+            const widgetLabel = form.widgetLabel.value;
+            console.log(widgetLabel);
+
+            try{
+
+                if(params.widget === 'sensor'){
+                    const type = params.type;
+                    const symbol = form.unit.value;
+                    const res = await fetch('/api/sensors/add', {
+                    method: 'POST',
+                    body: JSON.stringify({sensorName:widgetName, sensorLabel:widgetLabel, sensorStyle:type, symbol}),
+                    headers: { 'Content-Type':'application/json' }
+                    });
+                    const data = await res.json();
+                    if(data.errors && data.errors.length >0){
+                        data.errors.forEach(err=>{
+                            error.textContent = err.msg;
+                        });
+                    }
+                    if(data.msg === 'success'){
+                        window.location.href = '/dashboard';
+                    }
+
+                }else if(params.widget === 'switch'){
+                    const res = await fetch('/api/relays/add', {
+                    method: 'POST',
+                    body: JSON.stringify({relayName:widgetName, relayLabel: widgetLabel}),
+                    headers: { 'Content-Type':'application/json' }
+                    });
+                    const data = await res.json();
+                    if(data.errors && data.errors.length >0){
+                        data.errors.forEach(err=>{
+                            error.textContent = err.msg;
+                        });
+                    }
+                    if(data.msg === 'success'){
+                        window.location.href = '/dashboard';
+                    }
+                }
+                
+            }
+            catch(err){
+                console.log(err);
+            }
+
+        });
+        
+    </script>
+<%- include('./partials/footer.ejs') %>

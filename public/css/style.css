@@ -1,0 +1,571 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
+
+:root{
+    --primary-color: #0d6efd;
+    --danger-color: #dc3545;
+    --success-color: #28a745;
+    --light-color: #f4f4f4;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+}
+body{
+    font-family: 'Open Sans', sans-serif;
+    color: #333;
+}
+ul{
+    list-style-type: none;
+}
+a{
+text-decoration: none;
+}
+
+.wrapper{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+.container{
+    width: 90%;
+    margin: auto;
+}
+.x-large {
+    font-size: 4rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+  
+.large {
+    font-size: 3rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+  
+.lead {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+.add-heading{
+    font-size: 1.5rem;
+    line-height: 1;
+    font-weight: 600;
+    padding-left: 15px;
+    margin-bottom: 2rem;
+}
+.text-center{
+    text-align: center;
+}
+.icons-primary{
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    margin-right: .5rem;
+}
+.icons-info{
+    font-size: 1rem;
+    color: var(--primary-color);
+    margin-right: .5rem;
+}
+.text-primary{
+    color: var(--primary-color);
+    font-weight: 550;
+}
+.sub-head{
+    font-size: 1.2rem;
+    font-weight: 520;
+    margin-bottom: 1rem;
+}
+.subheading{
+    font-size: 1.5rem;
+    line-height: 1;
+    font-weight: 600;
+    border-width: 0 0 0 3px;
+    border-style: solid;
+    border-color: var(--primary-color);
+    padding-left: 15px;
+    margin-bottom: 2rem;
+    
+  }
+.medium{
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+a{
+    text-decoration: none;
+}
+.mt-1{
+    margin-top: 1rem;
+}
+.mt-2{
+    margin-top: 2rem;
+}
+.my-1{
+    margin: 1rem 0;
+}
+.py-2{
+    padding: 2rem 0;
+}
+.pl-1{
+    padding-left: 1rem;
+}
+.block{
+    display: block;
+}
+.inline-block{
+    display: inline-block;
+}
+.delete-icon{
+    display: block;
+    padding: 10px;
+    font-size: 1.4rem;
+    color: var(--danger-color);
+}
+.btn{
+    display: inline-block;
+    border-radius: 5px;
+    color: #333;
+    background: var(--light-color);
+    border:0;
+    font-weight: 700;
+    font-size: 0.8em;
+    display: block;
+    padding: 10px 16px;
+    letter-spacing: 2px;
+}
+.btn-danger{
+    background: var(--danger-color);
+    color: #fff;
+}
+.btn-primary{
+    background: var(--primary-color);
+    color: #fff;
+}
+.message{
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    color: #055160;
+    background-color: #cff4fc;
+    border-color: #b6effb;
+}
+.message-light{
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    color: #333;
+    background-color: var(--light-color);
+}
+/*Login page*/
+
+header{
+    padding: 10px 20px;
+    box-shadow: 1px 2px 3px rgba(0,0,0,0.1);
+}
+nav{
+    width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+nav h1 a{
+    color: #333;
+}
+nav ul{
+    display: flex;
+    align-items: center;
+}
+nav li{
+    margin-left: 20px;
+}
+nav li a{
+    color: #333;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.8em;
+    display: block;
+    padding: 10px 16px;
+    letter-spacing: 2px;
+}
+.login h2, .register h2{
+    font-size: 2.4em;
+    font-weight: 900;
+    margin-bottom: 40px;
+}
+.login, .register{
+    width: 360px;
+    margin: auto;
+    padding: 30px;
+    box-shadow: 0px 10px 20px 0px rgba(50, 50, 50, 0.4);
+    border-radius: 10px;
+    background: white;
+}
+.login input, .register input{
+    padding: 10px 12px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 1em;
+    width: 100%;
+}
+.login label, .register label{
+    display: block;
+    margin: 20px 0 10px;
+}
+
+.error{
+    color: #dc3545;
+    margin: 10px 2px;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+/*Dashboard*/
+.navigation{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100%;
+    background: #003147;
+    transition: 0.5s;
+    overflow: hidden;
+    z-index: 1000;
+}
+.navigation.active{
+    width: 60px;
+}
+.navigation ul{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.navigation ul li{
+    position: relative;
+    width: 100%;
+    list-style: none;
+}
+.navigation ul li:hover{
+    background: #03a9f4;
+}
+.navigation ul li:nth-child(1){
+    margin-bottom: 20px;
+}
+.navigation ul li:nth-child(1):hover{
+    background: transparent;
+}
+.navigation ul li a{
+    position: relative;
+    display: block;
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    color: #fff;
+}
+.navigation ul li a .icon{
+    position: relative;
+    display: block;
+    min-width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+.navigation ul li a .icon i{
+    color: #fff;
+    font-size: 24px;
+}
+.navigation ul li a .title{
+    position: relative;
+    display: block;
+    padding: 0 10px;
+    height: 60px;
+    line-height: 60px;
+    white-space: nowrap;
+}
+.main{
+    position: absolute;
+    width: calc(100% - 300px);
+    left: 300px;
+    min-height: 100vh;
+    background: #f5f5f5;
+    transition: 0.5s;
+}
+.main .topbar{
+    width: 100%;
+    background: #fff;
+    height: 60px;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.main.active{
+    width: calc(100% - 60px);
+    left: 60px;
+}
+.toggle{
+    position: relative;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+}
+.toggle .close{
+    display: none;
+}
+.toggle i{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    line-height: 60px;
+    font-size: 24px;
+    text-align: center;
+    color: #111;
+}
+.topbar .user{
+    padding-right: 20px;
+    font-size: 18px;
+    font-weight: 700;
+}
+.cards{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    padding: 1rem 0; 
+}
+
+.box{
+    padding: 1.6rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fff;
+    box-shadow: 4px 10px 20px rgba(0, 0, 0, .2);
+    border-radius: 10px;
+}
+.box .progress{
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+.box .progress svg{
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+.box .progress svg circle{
+    width: 150px;
+    height: 150px;
+    fill: none;
+    stroke-width: 10;
+    stroke: #000;
+    transform: translate(5px,5px);
+    stroke-dasharray: 440;
+    stroke-dashoffset: 440;
+    stroke-linecap: round;
+}
+.box .progress svg circle:nth-child(1){
+    stroke-dashoffset: 0;
+    stroke: #f3f3f3;
+}
+.box .progress svg circle:nth-child(2){
+    stroke: #03a9f4;
+    transition: 1s ease;
+}
+.box .progress .number{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #918e8e;
+}
+.box .progress .number h2{
+    font-size: 2rem;
+}
+.box .text{
+    padding: 10px 0 0;
+    color: #918e8e;
+    font-weight: 700;
+}
+.relay{
+    padding: 10px;
+}
+.relay label{
+    display: block;
+}
+.checkbox-toggle{
+    position: relative;
+    vertical-align: middle;
+    bottom: 1px;
+    margin-left: 20px;
+    width: 50px;
+    height: 25px;
+    -webkit-appearance: none;
+    cursor: pointer;
+    background: #c6c6c6;
+    outline: none;
+    border-radius: 20px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, .2);
+    transition: .5s ;
+}
+.checkbox-toggle:checked{
+    background: #03a9f4;
+}
+.checkbox-toggle:before{
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 24px;
+    border-radius: 20px;
+    top: 0;
+    left: 0;
+    background: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+    transition: .5s;
+}
+.checkbox-toggle:checked:before{
+    left: 25px;
+}
+
+.box .data{
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.box .data-text{
+    font-size: 2rem;
+    color: rgb(58, 58, 58);
+}
+.box .sensor-name{
+    margin-top: 1rem;
+    color: #918e8e;
+    font-weight: 700;
+}
+
+.profile-info, .settings-info, .sensors, .switches, .add-item{
+    padding: 2rem;
+    background-color: #fff;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 1px 2px 3px rgba(0,0,0,0.1);
+}
+.profile-info div p{
+    margin-bottom: 1.2rem;
+}
+.sensors .sensor-list, .switches .switches-list{
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--light-color);
+    margin-top: 10px;
+    padding: .8rem 2rem;
+}
+.displays, .switch-add-list{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 200px);
+    gap: 1rem;
+}
+.displays a img{
+    border: 1px solid lightgrey;
+    width: 100%;
+    height: 150px;
+    border-radius: 10px;
+}
+.switch-add-list a img{
+    border: 1px solid lightgrey;
+    width: 100%;
+    border-radius: 10px;
+}
+.add-item .items{
+    margin-left: 1rem;
+}
+.add-widget-item{
+    width: 360px;
+    margin: auto;
+    padding: 30px;
+}
+.add-widget-item input{
+    padding: 10px 12px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 1em;
+    width: 100%;
+    margin:1rem 0;
+}
+
+
+@media (max-width: 992px){
+    .navigation{
+        left: -100%;
+    }
+    .navigation.active{
+        left: 0;
+        width: 300px;
+    }
+    .main{
+        width: 100%;
+        left: 0;
+    }
+    .main.active{
+        width: calc(100% - 300px);
+        left: 300px;
+    }
+    .cards{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+}
+
+@media (max-width: 768px){
+    nav{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    nav li{
+        margin-left: 10px;
+    }
+    .navigation{
+        left: -100%;
+        width: 100%;
+        z-index: 1000;
+    }
+    .navigation.active{
+        width: 100%;
+        left: 0;
+    }
+    .toggle.active{
+        position: fixed;
+        right: 0;
+        z-index: 10000;
+    }
+    .toggle.active i{
+        color: #fff;
+    }
+    .toggle.active .bars{
+        display: none;
+    }
+    .toggle.active .close{
+        display: block;
+    }
+    .main, .main.active{
+        width: 100%;
+        left: 0;
+    }
+    .cards{
+        grid-template-columns: 1fr;
+    }
+}

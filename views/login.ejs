@@ -1,0 +1,59 @@
+<%- include('./partials/header.ejs') %> 
+    <header>
+        <nav class="container">
+            <h1><a href="/">IoT Dashboard</a></h1>
+            <ul>
+                <li><a href="/login">Log In</a></li>
+                <li><a href="/register">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="mt-2">
+        <form class="login">
+            <h2>Log In</h2>
+            <div class="error"></div>
+            <label for="email">Email</label>
+            <input type="text" name="email" required>
+            <label for="password">Password</label>
+            <input type="password" name="password" required>
+            <button class="mt-1 btn btn-primary">Log In</button>
+            <p class="my-1">
+                Don't have an account? <a href="/register" class="text-primary">Sign Up</a>
+            </p>
+        </form>
+    </section>
+    <script src="main.js"></script>
+    <script>
+        const form = document.querySelector('form');
+        const error = document.querySelector('.error');
+
+        form.addEventListener('submit', async(e)=>{
+            e.preventDefault();
+
+            error.textContent = '';
+
+            const email = form.email.value;
+            const password = form.password.value;
+            try{
+                const res = await fetch('/login', {
+                    method: 'POST',
+                    body: JSON.stringify({email, password}),
+                    headers: { 'Content-Type':'application/json' }
+                });
+                const data = await res.json();
+                if(data.errors && data.errors.length >0){
+                    data.errors.forEach(err=>{
+                        error.textContent = err.msg;
+                    });
+                }
+                if(data.msg === 'success'){
+                    window.location.href = '/dashboard';
+                }
+            }
+            catch(err){
+                console.log(err);
+            }
+
+        });
+    </script>
+<%- include('./partials/footer.ejs') %> 

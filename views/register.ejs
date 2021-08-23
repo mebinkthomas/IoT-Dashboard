@@ -1,0 +1,61 @@
+<%- include('./partials/header.ejs') %>
+    <header>
+        <nav class="container">
+            <h1><a href="/">IoT Dashboard</a></h1>
+            <ul>
+                <li><a href="/login">Log In</a></li>
+                <li><a href="/register">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="mt-2">
+        <form class="register">
+            <h2>Sign Up</h2>
+            <div class="error"></div>
+            <label for="name">Name</label>
+            <input type="text" name="name" required>
+            <label for="email">Email</label>
+            <input type="text" name="email" required>
+            <label for="password">Password</label>
+            <input type="password" name="password" required>
+            <button class="mt-1 btn btn-primary">Sign Up</button>
+            <p class="my-1">
+                Already have an account? <a href="/login" class="text-primary">Sign In</a>
+            </p>
+        </form>
+    </section>
+    <script src="main.js"></script>
+    <script>
+        const form = document.querySelector('form');
+        const error = document.querySelector('.error');
+        form.addEventListener('submit', async(e)=>{
+            e.preventDefault();
+
+            error.textContent = "";
+
+            const email = form.email.value;
+            const name = form.name.value;
+            const password = form.password.value;
+            try{
+                const res = await fetch('/register', {
+                    method: 'POST',
+                    body: JSON.stringify({name, email, password}),
+                    headers: { 'Content-Type':'application/json' }
+                });
+                const data = await res.json();
+                if(data.errors && data.errors.length >0){
+                    data.errors.forEach(err=>{
+                        error.textContent = err.msg;
+                    });
+                }
+                if(data.msg === 'success'){
+                    window.location.href = '/dashboard';
+                }
+                
+            }
+            catch(err){
+                console.log(err);
+            }
+        })
+    </script>
+<%- include('./partials/footer.ejs') %> 

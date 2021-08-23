@@ -1,0 +1,50 @@
+<%- include('./partials/header.ejs') %>
+    <div class="wrapper">
+        <%- include('./partials/sideNav.ejs') %>
+        <div class="main">
+            <%- include('./partials/topbar.ejs') %>
+            <section class="mt-1">
+                <% if(relays.length >0){ %>
+                    <div class="switches container">
+                        <p class="subheading">Switches you have added</p>
+                        <p class="message-light"><i class="fas fa-info-circle icons-info"></i> Get all switch status : &nbsp; GET &nbsp; /api/relays</p>
+                        <% relays.forEach(relay=>{ %>
+                            <div class="switches-list">
+                                <div class="switches-list-info">
+                                    <p>Label: <%= relay.relayLabel %> </p>
+                                    <p>Name: <%= relay.relayName %> </p>
+                                    <p>Route: </p>
+                                    <p>
+                                        GET &nbsp; /api/relays/<%= relay.relayName %> <span class="pl-1">- Get switch status</span><br>
+                                        PUT &nbsp; /api/relays/<%= relay.relayName %> <span class="pl-1">- Update switch status</span>
+                                    </p>
+                                </div>
+                                <i class="far fa-trash-alt delete-icon" data-id="<%= relay.id %>"></i>
+                            </div>
+                        <% }); %>
+                    </div>
+                <% } else{ %>
+                    <p class="container message mt-2"><i class="fas fa-info-circle icons-info"></i>You have not added any switches yet</p>
+                <% } %>
+            </section>
+        </div>
+    </div> 
+    <script>
+        const deleteButton = document.querySelectorAll('.delete-icon');
+        deleteButton.forEach(button=>{
+            button.addEventListener('click', async()=>{
+                const id = button.getAttribute('data-id');
+                try {
+                    const res = await fetch(`/api/relays/${id}`, { method: 'DELETE' });
+                    const data = await res.json();
+                    if(data.msg === 'success'){
+                        window.location.href = '/dashboard/switches';
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            });
+            
+        });
+    </script>
+<%- include('./partials/footer.ejs') %>
